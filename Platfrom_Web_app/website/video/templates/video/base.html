@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>
+            {% block title_block %}
+                video platform
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+        <div>
+            {% block body_block %}
+            {% endblock %}
+        </div>
+        <hr/>
+        <div>
+            <ul>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'add_video' %}" >add video </a></li>
+                    <li><a href="{% url 'show_videos' %}">My videos</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+
+                {% else %}
+                    <li><a href="{% url 'login' %}">Sign In</a></li>
+                    <li><a href="{% url 'register' %}">Sign Up</a></li>
+                {% endif %}
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'index' %}">Index</a></li>
+            </ul>
+        </div>
+    </body>
+</html>
