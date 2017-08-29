@@ -5,6 +5,7 @@ import os
 from os.path import join
 
 
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
@@ -14,13 +15,12 @@ class UserForm(forms.ModelForm):
 
 
 
-
 class Video_Form (forms.ModelForm):
-    title = forms.CharField(max_length=128,help_text="pleas enter the video title here")
     upload = forms.FileField()
-
     class Meta:
         model = Video
-        exclude = ('user',)
+        exclude=('user',)
 
 
+class Youtube_Form (forms.Form):
+    upload = forms.URLField()

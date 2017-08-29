@@ -18,8 +18,9 @@
         <div>
             <ul>
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'add_video' %}" >add video </a></li>
-                    <li><a href="{% url 'show_videos' %}">My videos</a></li>
+                    <li><a href="{% url 'add_video' user.id %}" >add video </a></li>
+                    <!--  <li><a href=" url 'add_youtube_video' user.id %}" >add youtube video </a></li>-->
+                    <li><a href="{% url 'show_videos' user.id %}">My videos</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
 
                 {% else %}
