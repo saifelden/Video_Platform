@@ -5,8 +5,12 @@
 {% endblock %}
 
 {% block body_block %}
-    <video width="600" height="600" autoplay>
-    <source src="/media/user_1/1-DataTypes_and_Variables_-_1_Arabic_-_YouTube.mp4" type="video/mp4">
-    </video>
+<ul>
+    {%  for i,j in list%}
+        <li><a href="{{ j }}">{{ i }}</a>  <a href="{{ j }}" download="Downloads">Download</a> </li>
+
+    {% endfor %}
+</ul>
+
 
 {% endblock %}

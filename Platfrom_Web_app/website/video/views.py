@@ -1,13 +1,15 @@
 from django.shortcuts import render
-from video.forms import UserForm , Video_Form
+from video.forms import UserForm, Video_Form, Youtube_Form
 from django.contrib.auth import authenticate, login , logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from .models import Video
 from django.contrib.auth.models import User
 from website.settings import MEDIA_ROOT
+from django.core.urlresolvers import reverse
 import os
-
+#from pytube import YouTube
 
 def index (request):
     return render(request,'video/index.html',{})
@@ -24,7 +26,6 @@ def register(request):
             user = user_form.save()
             user.set_password(user.password)
             user.save()
-
             registered=True
 
         else:
@@ -59,22 +60,56 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-@login_required
-def show_videos(request):
-    return render(request,'video/show_videos.html',{})
-
 
 @login_required
-def add_video(request):
-    form = Video_Form()
+def show_videos(request,user_id):
+    user = User.objects.get(id=user_id)
+    context_dict={'user':user}
+    name=[]
+    link=[]
+    directory="/home/abdelrhman/Video_Platform/Platfrom_Web_app/website/media/user_{0}/".format(user.id)
+    for filename in os.listdir(directory):
+        if filename.endswith(".mp4"):
+            name.append(filename)
+            link.append('/media/user_{0}/{1}'.format(user.id,filename))
+            continue
+        else:
+            continue
+    list = zip(name, link)
+    context_dict['list']=list
+    return render(request,'video/show_videos.html',context_dict)
 
+
+@login_required
+def add_video(request,user_id):
     if request.method == 'POST':
-        form = Video_Form(request.POST)
-        video = form.save(commit=False)
-        video.user = User.id
-        video.save()
-        return show_videos(request)
+        form = Video_Form(request.POST,request.FILES)
+        if form.is_valid():
+            video = form.save(commit=False)
+            video.user=User.objects.get(id=user_id)
+            video.save()
+            return HttpResponseRedirect('/video/')
+
+    else:
+        form = Video_Form()
 
     return render(request, 'video/add_video.html', {'form':form})
+
+#@login_required
+#def add_youtube_video(request,user_id):
+ #   if request.method == 'POST':
+  #      form = Youtube_Form(request.POST)
+   #     if form.is_valid():
+    #        yt = YouTube(form.upload)
+     #       film = yt.get('mp4')
+      #      film.download('/media/user_{0}/'.format(User.objects.get(id=user_id)))
+       #     video=Video
+        #    video.upload=film
+         #   video.user=User.objects.get(id=user_id)
+          #  video.save()
+           # return HttpResponseRedirect('/video/')
+   ##    form = Youtube_Form()
+#
+#    return render(request, 'video/add_youtube_video.html', {'form':form})
 
 

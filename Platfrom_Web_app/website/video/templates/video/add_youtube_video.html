@@ -1,12 +1,12 @@
 {% extends 'video/base.html' %}
 {%  load staticfiles %}
 {% block title_block %}
-add video
+add youtube video
 {% endblock %}
 {% block body_block %}
-    <h1>Add a video</h1>
+    <h1>Add a youtube video</h1>
     <div>
-        <form id="Video_Form" method="post" action="{% url 'add_video' user.id  %}" enctype="multipart/form-data">
+        <form id="youtube_Form" method="post" action="{% url 'add_youtube_video' user.id  %}" enctype="multipart/form-data">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
                 {{ hidden }}
