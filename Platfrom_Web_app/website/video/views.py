@@ -95,6 +95,9 @@ def add_video(request,user_id):
 
     return render(request, 'video/add_video.html', {'form':form})
 
+#Ezzat is here ya man 
+
+
 #@login_required
 #def add_youtube_video(request,user_id):
  #   if request.method == 'POST':
