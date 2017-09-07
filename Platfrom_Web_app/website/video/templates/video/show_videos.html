@@ -7,7 +7,7 @@
 {% block body_block %}
 <ul>
     {%  for i,j in list%}
-        <li><a href="{{ j }}">{{ i }}</a>  <a href="{{ j }}" download="Downloads">Download</a> </li>
+        <li><a href="{{ j }}" download="Downloads">Download</a> <a href="{{ j }}">{{ i }}</a>   </li>
 
     {% endfor %}
 </ul>

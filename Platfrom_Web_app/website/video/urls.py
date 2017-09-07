@@ -9,6 +9,6 @@ urlpatterns =[
     url(r'^about/$', views.about, name='about'),
     url(r'^(?P<user_id>\d)/show_videos/$',views.show_videos,name='show_videos'),
     url(r'^(?P<user_id>\d)/add_video/$',views.add_video ,name='add_video'),
-    #url(r'^(?P<user_id>\d)/add_youtube_video/$',views.add_youtube_video ,name='add_youtube_video'),
+    url(r'^(?P<user_id>\d)/add_youtube_video/$',views.add_youtube_video ,name='add_youtube_video'),
 
 ]

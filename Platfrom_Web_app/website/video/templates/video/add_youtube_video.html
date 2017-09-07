@@ -6,17 +6,11 @@ add youtube video
 {% block body_block %}
     <h1>Add a youtube video</h1>
     <div>
-        <form id="youtube_Form" method="post" action="{% url 'add_youtube_video' user.id  %}" enctype="multipart/form-data">
+        <form id="Youtube_Form" method="post" action="{% url 'add_youtube_video' user.id  %}" enctype="multipart/form-data">
             {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Add video"/>
+            <label for="url">Yotube url: </label>
+            <input id="upload" type="url" name="upload" value="{{ url }}">
+            <input type="submit" name="submit" value="add video">
         </form>
     </div>
 {% endblock %}

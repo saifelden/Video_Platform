@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from website.settings import MEDIA_ROOT
 from django.core.urlresolvers import reverse
 import os
-#from pytube import YouTube
+import sys
+from pytube import YouTube
 
 def index (request):
     return render(request,'video/index.html',{})
@@ -95,21 +96,23 @@ def add_video(request,user_id):
 
     return render(request, 'video/add_video.html', {'form':form})
 
-#@login_required
-#def add_youtube_video(request,user_id):
- #   if request.method == 'POST':
-  #      form = Youtube_Form(request.POST)
-   #     if form.is_valid():
-    #        yt = YouTube(form.upload)
-     #       film = yt.get('mp4')
-      #      film.download('/media/user_{0}/'.format(User.objects.get(id=user_id)))
-       #     video=Video
-        #    video.upload=film
-         #   video.user=User.objects.get(id=user_id)
-          #  video.save()
-           # return HttpResponseRedirect('/video/')
-   ##    form = Youtube_Form()
-#
-#    return render(request, 'video/add_youtube_video.html', {'form':form})
-
-
+@login_required
+def add_youtube_video(request,user_id):
+    user=User.objects.get(id=user_id)
+    if request.method == 'POST':
+        form = Youtube_Form(request.POST)
+        if form.is_valid():
+            yt = YouTube(form.cleaned_data['upload'])
+            video = yt.get('mp4','360p')
+            video.download("/home/abdelrhman/Video_Platform/Platfrom_Web_app/website/media/user_{0}/".format(user_id))
+            down_video=Video()
+            x='x'
+            for filename in os.listdir("/home/abdelrhman/Video_Platform/Platfrom_Web_app/website/media/user_{0}/".format(user_id)):
+                x="/user_{0}/{1}".format(user_id,filename)
+            down_video.upload=x
+            down_video.user=User.objects.get(id=user_id)
+            down_video.save()
+            return HttpResponseRedirect('/video/')
+    else:
+        form = Youtube_Form()
+    return render(request, 'video/add_youtube_video.html', {'form':form})
