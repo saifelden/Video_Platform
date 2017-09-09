@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
-from video.models import Video
+from video.models import Video , Profile
 import os
 from os.path import join
 
@@ -38,3 +38,13 @@ class Youtube_Form (forms.Form):
         fields=('upload',)
 
 
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username', 'email')
+
+
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('photo',)

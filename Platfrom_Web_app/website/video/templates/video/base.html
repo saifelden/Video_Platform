@@ -22,6 +22,8 @@
                     <li><a href="{% url 'add_youtube_video' user.id %}" >add youtube video </a></li>
                     <li><a href="{% url 'show_videos' user.id %}">My videos</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
+                    <li><a href="{% url 'myprofile' user.id %}"> My profile</a> </li>
+                    <li><a href="{% url 'edit' %}">Edit you profile </a> </li>
 
                 {% else %}
                     <li><a href="{% url 'login' %}">Sign In</a></li>
