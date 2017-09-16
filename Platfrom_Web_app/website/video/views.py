@@ -25,10 +25,13 @@ def register(request):
     if request.method == 'POST':
         user_form = UserForm(data=request.POST)
         if user_form.is_valid():
+
             user = user_form.save()
             user.set_password(user.password)
             user.save()
             Profile.objects.create(limit=0,photo='/images/0.jpg',user=user)
+            if not os.path.exists("/home/abdelrhman/programming/projects/Video_Platform/Platfrom_Web_app/website/media/user_{0}".format(user.id)):
+                os.makedirs("/home/abdelrhman/programming/projects/Video_Platform/Platfrom_Web_app/website/media/user_{0}".format(user.id))
             registered=True
         else:
             print(user_form.errors)

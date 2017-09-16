@@ -5,12 +5,15 @@
 {% endblock %}
 
 {% block body_block %}
+    {% if list %}
 <ul>
     {%  for i,j in list%}
         <li><a href="{{ j }}" download="Downloads">Download</a> <a href="{{ j }}">{{ i }}</a>   </li>
 
     {% endfor %}
 </ul>
-
+    {% else %}
+    <p>sorry no videos yet!!</p>
+    {% endif %}
 
 {% endblock %}
